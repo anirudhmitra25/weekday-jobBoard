@@ -12,3 +12,17 @@ export interface IJobCard {
   minJdSalary: number;
   salaryCurrencyCode: string;
 }
+
+export interface Ifilter {
+  remoteOnSite: Array<string>;
+  techStack: Array<string>;
+  role: Array<string>;
+  minBasePay: number;
+  minExperience: number;
+  location: string;
+  companyName: string;
+}
+export interface IFilters {
+  filters: Ifilter;
+  setFilter: (a: any) => void;
+}

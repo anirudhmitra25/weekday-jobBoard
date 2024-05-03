@@ -3,22 +3,35 @@ import {
   fetchJobBoardRequest,
   fetchJobBoardSuccess,
   fetchJobBoardFailure,
+  setFilter,
 } from "../store/action";
 import { connect } from "react-redux";
 import fetchJobs from "../api/fetchJobs";
 import { JobCard, Filters } from "../components";
-import { IJobCard } from "../types";
+import { Ifilter, IJobCard } from "../types";
 import "./LandingPageStyles.css";
 import { Triangle } from "react-loader-spinner";
+
+interface ILandingPage {
+  filters: Ifilter;
+  jobBoardData: Array<IJobCard>;
+  setFilter: any;
+  fetchJobBoardRequest: any;
+  fetchJobBoardSuccess: any;
+  fetchJobBoardFailure: any;
+}
 
 function LandingPage({
   fetchJobBoardRequest,
   fetchJobBoardSuccess,
   fetchJobBoardFailure,
   jobBoardData,
-}: any) {
+  setFilter,
+  filters,
+}: ILandingPage) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [filteredData, setFilteredData] = useState<IJobCard[]>([]);
   const observer = useRef<IntersectionObserver>();
 
   useEffect(() => {
@@ -64,14 +77,104 @@ function LandingPage({
       });
   };
 
+  useEffect(() => {
+    if (!jobBoardData) {
+      return;
+    }
+    let finalData = jobBoardData;
+    if (filters.companyName !== "") {
+      let filteredList = jobBoardData.filter((job) => {
+        return job.companyName
+          .toLowerCase()
+          .includes(filters.companyName.toLowerCase());
+      });
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+    if (filters.minExperience !== null) {
+      let filteredList = jobBoardData.filter((job) => {
+        return job.minExp >= filters.minExperience;
+      });
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+    if (filters.minBasePay !== null) {
+      let filteredList = jobBoardData.filter((job) => {
+        return job.minJdSalary >= filters.minBasePay;
+      });
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+    if (filters.location !== "") {
+      let filteredList = jobBoardData.filter((job) => {
+        return job.location
+          .toLowerCase()
+          .includes(filters.location.toLowerCase());
+      });
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+
+    if (filters.techStack?.length > 0) {
+      let filteredList = jobBoardData.filter((job) => {
+        return filters.techStack.some((tech) =>
+          job.jobRole.toLowerCase().includes(tech.toLowerCase())
+        );
+      });
+
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+
+    if (filters.role?.length > 0) {
+      let filteredList = jobBoardData.filter((job) => {
+        return filters.role.some((role) =>
+          job.jobRole.toLowerCase().includes(role.toLowerCase())
+        );
+      });
+
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+
+    if (filters.remoteOnSite?.length > 0) {
+      let filteredList = jobBoardData.filter((job) => {
+        return filters.remoteOnSite.some((preference) =>
+          preference.toLowerCase() === "remote"
+            ? job.location.toLowerCase().includes(preference.toLowerCase())
+            : true
+        );
+      });
+
+      let tempArray = finalData.filter((ele) => {
+        return filteredList.includes(ele);
+      });
+      finalData = tempArray;
+    }
+
+    setFilteredData(finalData);
+  }, [filters, jobBoardData]);
+
   return (
-    <div>
+    <div className="container">
       <div className="filters">
-        <Filters />
+        <Filters filters={filters} setFilter={setFilter} />
       </div>
       <div className="job-list">
-        {jobBoardData &&
-          jobBoardData.map((job: IJobCard) => (
+        {filteredData.length > 0 &&
+          filteredData.map((job: IJobCard) => (
             <JobCard
               key={job.jdUid}
               companyName={job.companyName}
@@ -110,12 +213,14 @@ function LandingPage({
 
 const mapStateToProps = (state: any) => ({
   jobBoardData: state.jobBoardData,
+  filters: state.filters,
 });
 
 const mapDispatchToProps = {
   fetchJobBoardRequest,
   fetchJobBoardSuccess,
   fetchJobBoardFailure,
+  setFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

@@ -1,10 +1,19 @@
 .job-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 .loader {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.filters {
+  display: flex;
+}
+
+.container {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
