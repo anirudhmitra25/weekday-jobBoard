@@ -1,0 +1,74 @@
+.job-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.job-header div {
+  margin-left: 1rem;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  transition: transform 0.3s ease !important;
+  margin: 10px;
+}
+.card:hover {
+  transform: scale(1.03);
+}
+
+.footer p {
+  opacity: 0.6;
+  font-weight: 700;
+}
+
+.easy-apply {
+  border-radius: 10;
+  background-color: aqua;
+}
+.job-description {
+  position: relative;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(2em * 8);
+}
+.modal-content {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  outline: none;
+}
+
+.description-container {
+  position: relative;
+}
+
+.fade-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* Adjust as needed */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.8)
+  );
+}
+
+.view-job {
+  text-align: center;
+}
+.view-job span {
+  color: blue;
+  cursor: pointer;
+}
