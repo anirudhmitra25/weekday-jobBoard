@@ -26,3 +26,16 @@ export interface IFilters {
   filters: Ifilter;
   setFilter: (a: any) => void;
 }
+
+export interface IJobModal {
+  open: any;
+  handleClose: any;
+  jobDetailsFromCompany: string;
+  logoUrl: string;
+  companyName: string;
+  jobRole: string;
+  location: string;
+  salaryCurrencyCode: string;
+  minJdSalary: number;
+  maxJdSalary: number;
+}

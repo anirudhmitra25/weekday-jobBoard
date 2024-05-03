@@ -5,7 +5,6 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Checkbox,
   IconButton,
   ListItemText,
 } from "@mui/material";
@@ -28,7 +27,7 @@ const minBasePayOptions = [
 
 const minExperienceOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function Filters({ filters, setFilter }: IFilters) {
+function Filters({ setFilter }: IFilters) {
   const [minExperience, setMinExperience] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
@@ -38,7 +37,6 @@ function Filters({ filters, setFilter }: IFilters) {
   const [minBasePay, setMinBasePay] = useState(null);
 
   useEffect(() => {
-    console.log(minBasePay);
     setFilter({
       minBasePay: minBasePay,
       minExperience: minExperience,
@@ -84,8 +82,8 @@ function Filters({ filters, setFilter }: IFilters) {
               </div>
             )}
           >
-            {minExperienceOptions.map((exp) => (
-              <MenuItem value={exp}>{exp} Year</MenuItem>
+            {minExperienceOptions.map((exp,key) => (
+              <MenuItem key={key} value={exp}>{exp} Year</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -128,7 +126,7 @@ function Filters({ filters, setFilter }: IFilters) {
           >
             {remoteOnSiteOptions.map((option) => (
               <MenuItem key={option} value={option}>
-                {/* <Checkbox checked={remoteOnSite.indexOf(option) > -1} /> */}
+            
                 <ListItemText primary={option} />
               </MenuItem>
             ))}

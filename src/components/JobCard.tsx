@@ -6,10 +6,10 @@ import {
   Typography,
   CardActions,
   Button,
-  Modal,
-  Box,
 } from "@mui/material";
 import "./JobCardStyles.css";
+import JobModal from "./JobModal";
+import BoltIcon from "@mui/icons-material/Bolt";
 
 export default function JobCard({
   companyName,
@@ -44,21 +44,28 @@ export default function JobCard({
         <div className="job-header">
           <img src={logoUrl} height={"30em"} width={"30em"} />
           <div>
-            <Typography sx={{ fontSize: 15 }} color="text.secondary">
+            <Typography
+              sx={{ fontSize: 18, fontWeight: "700" }}
+              color="text.secondary"
+            >
               {companyName}
             </Typography>
-            <Typography sx={{ fontSize: 15 }} color="text.primary">
+            <Typography sx={{ fontSize: 16 }} color="text.primary">
               {jobRole}
             </Typography>
-            <Typography sx={{ fontSize: 15 }} color="text.primary">
+            <Typography
+              sx={{ fontSize: 13, fontWeight: "500" }}
+              color="text.primary"
+            >
               {location}
             </Typography>
           </div>
         </div>
-        <Typography sx={{ fontSize: 15 }} color="text.secondary">
-          Estimated Salary: {salaryCurrencyCode}
-          {minJdSalary} - {maxJdSalary}
-        </Typography>
+        {salaryCurrencyCode && minJdSalary && maxJdSalary && (
+          <Typography sx={{ fontSize: 15 }} color="text.secondary">
+            {`Estimated Salary: ${minJdSalary},000 - ${maxJdSalary},000 ${salaryCurrencyCode}`}
+          </Typography>
+        )}
         <Typography variant="h6" component="h2">
           About Company:
         </Typography>
@@ -74,37 +81,45 @@ export default function JobCard({
         </div>
 
         <div className="footer">
-          <p>Minimum Experience</p>
-          <span>{minExp} years</span>
+          {minExp && (
+            <>
+              <p>Minimum Experience</p>
+              <span>{minExp} years</span>
+            </>
+          )}
         </div>
-        <Modal
+        <JobModal
           open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="modal-content">
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Full Job Description
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {jobDetailsFromCompany}
-            </Typography>
-          </Box>
-        </Modal>
+          handleClose={handleClose}
+          jobDetailsFromCompany={jobDetailsFromCompany}
+          logoUrl={logoUrl}
+          companyName={companyName}
+          jobRole={jobRole}
+          location={location}
+          salaryCurrencyCode={salaryCurrencyCode}
+          minJdSalary={minJdSalary}
+          maxJdSalary={maxJdSalary}
+        />
       </CardContent>
       <CardActions>
         <Button
           sx={{
             width: "100%",
-            bgcolor: "#96DED1",
+            bgcolor: "#7FFFD4",
             color: "black",
-            borderRadius: 5,
+            borderRadius: 2,
+            minHeight: "2.5rem",
+            fontWeight: "600",
           }}
           className="easy-apply"
           variant="contained"
           size="small"
         >
+          <BoltIcon
+            sx={{
+              color: "yellow",
+            }}
+          />
           Easy Apply
         </Button>
       </CardActions>
