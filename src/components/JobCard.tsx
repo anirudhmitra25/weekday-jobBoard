@@ -14,12 +14,9 @@ import BoltIcon from "@mui/icons-material/Bolt";
 export default function JobCard({
   companyName,
   jobRole,
-  jdLink,
-  jdUid,
   jobDetailsFromCompany,
   maxJdSalary,
   minJdSalary,
-  maxExp,
   minExp,
   location,
   logoUrl,
