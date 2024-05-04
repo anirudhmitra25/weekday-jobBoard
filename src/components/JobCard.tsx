@@ -81,12 +81,8 @@ export default function JobCard({
         </div>
 
         <div className="footer">
-          {minExp && (
-            <>
-              <p>Minimum Experience</p>
-              <span>{minExp} years</span>
-            </>
-          )}
+          <p>Minimum Experience</p>
+          <span>{minExp ? `${minExp} years` : "-"} </span>
         </div>
         <JobModal
           open={open}

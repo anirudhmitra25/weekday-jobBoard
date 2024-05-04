@@ -82,8 +82,10 @@ function Filters({ setFilter }: IFilters) {
               </div>
             )}
           >
-            {minExperienceOptions.map((exp,key) => (
-              <MenuItem key={key} value={exp}>{exp} Year</MenuItem>
+            {minExperienceOptions.map((exp, key) => (
+              <MenuItem key={key} value={exp}>
+                {exp} Year
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -126,7 +128,6 @@ function Filters({ setFilter }: IFilters) {
           >
             {remoteOnSiteOptions.map((option) => (
               <MenuItem key={option} value={option}>
-            
                 <ListItemText primary={option} />
               </MenuItem>
             ))}

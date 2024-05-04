@@ -19,7 +19,7 @@ export const fetchJobBoardFailure = (error: any) => ({
   payload: error,
 });
 
-// Action creator for setting filters
+
 export const setFilter = (filter: any) => ({
   type: SET_FILTER,
   payload: filter,

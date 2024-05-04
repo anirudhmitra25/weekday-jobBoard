@@ -1,7 +1,6 @@
 import axios from "axios";
 export default async function fetchJobs({ limit = 10, offset = 0 }: any) {
   try {
-
     const response = await axios.post(
       "https://api.weekday.technology/adhoc/getSampleJdJSON",
       {
@@ -14,7 +13,6 @@ export default async function fetchJobs({ limit = 10, offset = 0 }: any) {
         },
       }
     );
-
 
     return response.data.jdList;
   } catch (error: any) {

@@ -22,7 +22,6 @@ interface ILandingPage {
 }
 
 function LandingPage({
-  fetchJobBoardRequest,
   fetchJobBoardSuccess,
   fetchJobBoardFailure,
   jobBoardData,
